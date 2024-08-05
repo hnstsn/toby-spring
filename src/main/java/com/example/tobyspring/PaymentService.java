@@ -13,7 +13,15 @@ import java.util.stream.Collectors;
 
 public class PaymentService {
     public Payment prepare(Long orderId, String currency, BigDecimal foreignCurrencyAmount) {
-        // 환율 가져오기
+        BigDecimal exRate = getExRate(currency);
+        BigDecimal convertedAmount = foreignCurrencyAmount.multiply(exRate);
+        LocalDateTime validUntil = LocalDateTime.now().plusMinutes(30);
+        
+        return new Payment(orderId, currency, foreignCurrencyAmount, exRate, convertedAmount, validUntil);
+    }
+
+    // 환율 가져오기
+    private BigDecimal getExRate(String currency) {
         String url = "https://open.er-api.com/v6/latest/" + currency;
         URI uri = null;
         try {
@@ -40,14 +48,7 @@ public class PaymentService {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-
-
-        // 금액 계산
-        BigDecimal convertedAmount = foreignCurrencyAmount.multiply(exRate);
-
-        // 유효 시간 계산
-        LocalDateTime validUntil = LocalDateTime.now().plusMinutes(30);
-        return new Payment(orderId, currency, foreignCurrencyAmount, exRate, convertedAmount, validUntil);
+        return exRate;
     }
 
     public static void main(String[] args) {
