@@ -12,7 +12,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.stream.Collectors;
 
-public class SimpleExRateProvider {
+public class SimpleExRateProvider implements ExRateProvider {
+
+    @Override
     public BigDecimal getExRate(String currency) {
         if (currency.equals("USD"))
             return BigDecimal.valueOf(1000);

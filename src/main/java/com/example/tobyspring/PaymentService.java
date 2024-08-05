@@ -12,16 +12,14 @@ import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 public class PaymentService {
-//    private final WebApiExRateProvider exRateProvider;
-    private final SimpleExRateProvider exRateProvider;
+    private final ExRateProvider exRateProvider;
 
     public PaymentService() {
-//        this.exRateProvider = new WebApiExRateProvider();
-        this.exRateProvider = new SimpleExRateProvider();
+        this.exRateProvider = new WebApiExRateProvider();
+//        this.exRateProvider = new SimpleExRateProvider();
     }
 
     public Payment prepare(Long orderId, String currency, BigDecimal foreignCurrencyAmount) {
-//        BigDecimal exRate = exRateProvider.getWebExRate(currency);
         BigDecimal exRate = exRateProvider.getExRate(currency);
         BigDecimal convertedAmount = foreignCurrencyAmount.multiply(exRate);
         LocalDateTime validUntil = LocalDateTime.now().plusMinutes(30);

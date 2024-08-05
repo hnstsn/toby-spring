@@ -12,8 +12,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.stream.Collectors;
 
-public class WebApiExRateProvider {
-    public BigDecimal getWebExRate(String currency) {
+public class WebApiExRateProvider implements ExRateProvider {
+    @Override
+    public BigDecimal getExRate(String currency) {
         String url = "https://open.er-api.com/v6/latest/" + currency;
         URI uri = null;
         try {
