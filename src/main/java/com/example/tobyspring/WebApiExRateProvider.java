@@ -39,6 +39,7 @@ public class WebApiExRateProvider implements ExRateProvider {
         try {
             ObjectMapper mapper = new ObjectMapper();
             ExRateData data = mapper.readValue(response, ExRateData.class);
+            System.out.println("API ExRate :" + data.rates().get("KRW"));
             exRate = data.rates().get("KRW");
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
