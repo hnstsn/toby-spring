@@ -1,5 +1,6 @@
-package com.example.tobyspring;
+package com.example.tobyspring.exrate;
 
+import com.example.tobyspring.payment.ExRateProvider;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;

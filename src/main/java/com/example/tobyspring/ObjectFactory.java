@@ -1,5 +1,9 @@
 package com.example.tobyspring;
 
+import com.example.tobyspring.exrate.CachedExRateProvider;
+import com.example.tobyspring.payment.ExRateProvider;
+import com.example.tobyspring.exrate.WebApiExRateProvider;
+import com.example.tobyspring.payment.PaymentService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

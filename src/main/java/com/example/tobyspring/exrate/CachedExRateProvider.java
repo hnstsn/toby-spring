@@ -1,4 +1,6 @@
-package com.example.tobyspring;
+package com.example.tobyspring.exrate;
+
+import com.example.tobyspring.payment.ExRateProvider;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
