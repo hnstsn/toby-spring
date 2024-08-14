@@ -1,24 +1,29 @@
 package com.example.tobyspring.payment;
 
-import com.example.tobyspring.TestObjectFactory;
+import com.example.tobyspring.TestPaymentConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
+
 import static java.math.BigDecimal.valueOf;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = TestObjectFactory.class)
+@ContextConfiguration(classes = TestPaymentConfig.class)
 class PaymentServiceSpringV3Test {
-
     @Autowired
     private PaymentService paymentService;
 
     @Autowired
     private ExRateProviderStub exRateProviderStub;
+
 
     @Test
     void convertedAmount() {
