@@ -1,10 +1,11 @@
 package com.example.tobyspring.exrate;
 
 import com.example.tobyspring.api.ApiExecutor;
+import com.example.tobyspring.api.ErApiExRateExtractor;
+import com.example.tobyspring.api.ExRateExtractor;
 import com.example.tobyspring.api.SimpleApiExecutor;
 import com.example.tobyspring.payment.ExRateProvider;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -17,10 +18,10 @@ public class WebApiExRateProvider implements ExRateProvider {
     @Override
     public BigDecimal getExRate(String currency) {
         String url = "https://open.er-api.com/v6/latest/" + currency;
-        return runApiForExRate(url, new SimpleApiExecutor());
+        return runApiForExRate(url, new SimpleApiExecutor(), new ErApiExRateExtractor());
     }
 
-    private static BigDecimal runApiForExRate(String url, ApiExecutor apiExecutor) {     // template.
+    private static BigDecimal runApiForExRate(String url, ApiExecutor apiExecutor, ExRateExtractor exRateExtractor) {     // template.
         URI uri;
         try {
             uri = new URI(url);
@@ -37,16 +38,10 @@ public class WebApiExRateProvider implements ExRateProvider {
         }
 
         try {
-            return extractExRate(response);
+//            return extractExRate(response);
+            return exRateExtractor.extract(response);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    // 변할 수 있는 부분 분리
-    private static BigDecimal extractExRate(String response) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        ExRateData data = mapper.readValue(response, ExRateData.class);
-        return data.rates().get("KRW");
     }
 }
