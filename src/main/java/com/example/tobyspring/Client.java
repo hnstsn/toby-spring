@@ -1,5 +1,6 @@
 package com.example.tobyspring;
 
+import com.example.tobyspring.config.PaymentConfig;
 import com.example.tobyspring.payment.Payment;
 import com.example.tobyspring.payment.PaymentService;
 import org.springframework.beans.factory.BeanFactory;

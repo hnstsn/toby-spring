@@ -1,4 +1,4 @@
-package com.example.tobyspring;
+package com.example.tobyspring.config;
 
 import com.example.tobyspring.api.ApiTemplate;
 import com.example.tobyspring.api.ErApiExRateExtractor;
